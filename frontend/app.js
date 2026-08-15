@@ -7,11 +7,11 @@
 // API CONFIGURATION
 // ============================================================
 
-const API_URL = "http://127.0.0.1:8000/agent/chat";
+const API_URL = "https://supportflow-ai-by0l.onrender.com";
 
-const TICKET_HISTORY_URL = "http://127.0.0.1:8000/agent/tickets";
+const TICKET_HISTORY_URL = `${API_URL}/agent/tickets`;
 
-const USER_ID = 2;
+const USER_ID = 1;
 
 
 // ============================================================
@@ -53,70 +53,55 @@ async function sendMessage() {
         return;
     }
 
-
     // Remove welcome screen
-
-    const welcome =
-        document.querySelector(".welcome-message");
+    const welcome = document.querySelector(".welcome-message");
 
     if (welcome) {
         welcome.remove();
     }
 
-
     // Show user message
-
     addMessage(message, "user");
 
-
     // Clear input
-
     messageInput.value = "";
-
     resetTextarea();
 
-
     // Disable sending
-
     isSending = true;
 
     if (sendButton) {
         sendButton.disabled = true;
     }
 
-
     // Show typing indicator
-
     const typingId = showTyping();
-
 
     try {
 
         // ====================================================
-        // SEND REQUEST TO FASTAPI
+        // SEND MESSAGE TO SUPPORTFLOW AI AGENT
         // ====================================================
 
-        const response = await fetch(API_URL, {
+        const response = await fetch(
+            `${API_URL}/agent/chat`,
+            {
+                method: "POST",
 
-            method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
 
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-
-            body: JSON.stringify({
-                user_id: USER_ID,
-                message: message
-            })
-
-        });
-
+                body: JSON.stringify({
+                    user_id: USER_ID,
+                    message: message
+                })
+            }
+        );
 
         // Remove typing indicator
-
         removeTyping(typingId);
-
 
         // ====================================================
         // HANDLE SERVER ERROR
@@ -129,25 +114,16 @@ async function sendMessage() {
 
             try {
 
-                const errorData =
-                    await response.json();
+                const errorData = await response.json();
 
                 if (errorData.detail) {
-
-                    errorMessage =
-                        errorData.detail;
-
+                    errorMessage = errorData.detail;
                 }
-
                 else if (errorData.message) {
-
-                    errorMessage =
-                        errorData.message;
-
+                    errorMessage = errorData.message;
                 }
 
             }
-
             catch (error) {
 
                 console.warn(
@@ -159,14 +135,13 @@ async function sendMessage() {
             throw new Error(errorMessage);
         }
 
-
         // ====================================================
         // READ RESPONSE
         // ====================================================
 
-        const data =
-            await response.json();
+        const data = await response.json();
 
+        console.log("Agent response:", data);
 
         // ====================================================
         // DISPLAY AI RESPONSE
@@ -180,7 +155,14 @@ async function sendMessage() {
             );
 
         }
+        else if (data && data.message) {
 
+            addMessage(
+                data.message,
+                "ai"
+            );
+
+        }
         else {
 
             addMessage(
@@ -192,7 +174,6 @@ async function sendMessage() {
 
     }
 
-
     catch (error) {
 
         console.error(
@@ -200,46 +181,14 @@ async function sendMessage() {
             error
         );
 
-
         removeTyping(typingId);
 
-
-        let userMessage =
-            "⚠️ Something went wrong while contacting SupportFlow AI.";
-
-
-        // Connection error
-
-        if (
-            error instanceof TypeError &&
-            error.message.includes("fetch")
-        ) {
-
-            userMessage =
-                "⚠️ I couldn't connect to the SupportFlow AI server. " +
-                "Please make sure the FastAPI server is running on port 8000.";
-
-        }
-
-
-        // Server error
-
-        else {
-
-            userMessage =
-                "⚠️ " +
-                (error.message || "Something went wrong.");
-
-        }
-
-
         addMessage(
-            userMessage,
+            `⚠️ ${error.message || "Something went wrong."}`,
             "ai"
         );
 
     }
-
 
     finally {
 
@@ -249,12 +198,13 @@ async function sendMessage() {
             sendButton.disabled = false;
         }
 
-        messageInput.focus();
+        if (messageInput) {
+            messageInput.focus();
+        }
 
     }
 
 }
-
 
 // ============================================================
 // ADD MESSAGE
@@ -1083,7 +1033,7 @@ async function getOrderHistory() {
         // ==========================================
 
         const orderResponse = await fetch(
-            `http://127.0.0.1:8000/orders/user/${USER_ID}`
+            `${API_URL}/orders/user/${USER_ID}`
         );
 
         if (!orderResponse.ok) {
@@ -1126,7 +1076,7 @@ async function getOrderHistory() {
         try {
 
             const productResponse = await fetch(
-                "http://127.0.0.1:8000/products/"
+                `${API_URL}/products/`
             );
 
             if (productResponse.ok) {
