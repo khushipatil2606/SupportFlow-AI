@@ -1,0 +1,656 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+    height: 100vh;
+    overflow: hidden;
+}
+
+button,
+textarea {
+    font-family: inherit;
+}
+
+/* =========================
+   MAIN APP
+========================= */
+
+.app {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+    width: 270px;
+    background: #111827;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 18px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 5px 8px 30px;
+}
+
+.logo-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #4f46e5;
+    font-size: 21px;
+}
+
+.logo h2 {
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.logo span {
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+
+/* Sidebar actions */
+
+.sidebar-section {
+    margin-top: 20px;
+}
+
+.section-title {
+    font-size: 11px;
+    font-weight: bold;
+    color: #6b7280;
+    letter-spacing: 1px;
+    margin: 0 8px 12px;
+}
+
+.quick-btn {
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: #d1d5db;
+    text-align: left;
+    padding: 13px 12px;
+    border-radius: 9px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.quick-btn:hover {
+    background: #1f2937;
+    color: white;
+}
+
+
+/* Sidebar bottom */
+
+.sidebar-bottom {
+    margin-top: auto;
+    padding: 12px 8px;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #9ca3af;
+    font-size: 13px;
+}
+
+.status-dot {
+    width: 9px;
+    height: 9px;
+    background: #22c55e;
+    border-radius: 50%;
+}
+
+
+/* =========================
+   CHAT CONTAINER
+========================= */
+
+.chat-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: #ffffff;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.chat-header {
+    height: 82px;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+}
+
+.chat-header h1 {
+    font-size: 21px;
+    margin-bottom: 5px;
+}
+
+.chat-header p {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.user-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f3f4f6;
+    padding: 9px 13px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: #374151;
+}
+
+
+/* =========================
+   CHAT MESSAGES
+========================= */
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 35px;
+}
+
+
+/* Welcome */
+
+.welcome-message {
+    max-width: 650px;
+    margin: 70px auto;
+    text-align: center;
+}
+
+.welcome-icon {
+    width: 70px;
+    height: 70px;
+    margin: auto auto 20px;
+    border-radius: 20px;
+    background: #eef2ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+}
+
+.welcome-message h2 {
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.welcome-message p {
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+
+/* Suggestions */
+
+.suggestions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.suggestions button {
+    border: 1px solid #e5e7eb;
+    background: white;
+    padding: 11px 15px;
+    border-radius: 9px;
+    cursor: pointer;
+    color: #374151;
+    font-size: 13px;
+    transition: 0.2s;
+}
+
+.suggestions button:hover {
+    background: #f3f4f6;
+}
+
+
+/* =========================
+   CHAT BUBBLES
+========================= */
+
+.message-row {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.message-row.user {
+    justify-content: flex-end;
+}
+
+.message-row.ai {
+    justify-content: flex-start;
+}
+
+.message-bubble {
+    max-width: 70%;
+    padding: 13px 16px;
+    border-radius: 14px;
+    font-size: 14px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+}
+
+.message-row.user .message-bubble {
+    background: #4f46e5;
+    color: white;
+    border-bottom-right-radius: 4px;
+}
+
+.message-row.ai .message-bubble {
+    background: #f3f4f6;
+    color: #1f2937;
+    border-bottom-left-radius: 4px;
+}
+
+
+/* =========================
+   TYPING INDICATOR
+========================= */
+
+.typing {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 14px 16px;
+    background: #f3f4f6;
+    border-radius: 14px;
+    width: fit-content;
+}
+
+.typing span {
+    width: 7px;
+    height: 7px;
+    background: #9ca3af;
+    border-radius: 50%;
+    animation: typing 1.2s infinite;
+}
+
+.typing span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+    0%, 60%, 100% {
+        transform: translateY(0);
+    }
+
+    30% {
+        transform: translateY(-5px);
+    }
+}
+
+
+/* =========================
+   INPUT AREA
+========================= */
+
+.chat-input-area {
+    border-top: 1px solid #e5e7eb;
+    padding: 18px 32px 20px;
+}
+
+.input-wrapper {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    max-width: 1000px;
+    margin: auto;
+    border: 1px solid #d1d5db;
+    border-radius: 14px;
+    padding: 8px;
+    background: white;
+}
+
+#messageInput {
+    flex: 1;
+    resize: none;
+    border: none;
+    outline: none;
+    padding: 9px 10px;
+    font-size: 14px;
+    min-height: 40px;
+    max-height: 120px;
+}
+
+.send-button {
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 10px;
+    background: #4f46e5;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.send-button:hover {
+    background: #4338ca;
+}
+
+.send-button:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+}
+
+.input-hint {
+    text-align: center;
+    margin-top: 8px;
+    font-size: 11px;
+    color: #9ca3af;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+    .sidebar {
+        display: none;
+    }
+
+    .chat-header {
+        padding: 0 18px;
+    }
+
+    .chat-header p {
+        display: none;
+    }
+
+    .chat-messages {
+        padding: 20px;
+    }
+
+    .chat-input-area {
+        padding: 12px;
+    }
+
+    .message-bubble {
+        max-width: 85%;
+    }
+
+    .welcome-message {
+        margin: 50px auto;
+    }
+}
+/* ================================
+   CLEAR CHAT BUTTON
+================================ */
+
+.clear-chat-btn {
+    margin-top: 8px;
+}
+
+.clear-chat-btn:hover {
+    opacity: 0.85;
+}
+.message-bubble {
+    white-space: pre-wrap;
+}
+/* ============================================================
+   TICKET HISTORY
+============================================================ */
+
+.ticket-history {
+    width: 100%;
+    max-width: 650px;
+    padding: 5px;
+}
+
+.ticket-history h3 {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+}
+
+
+/* ============================================================
+   TICKET CARD
+============================================================ */
+
+.ticket-card {
+    padding: 14px;
+    margin-bottom: 12px;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.04);
+
+    transition: transform 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.ticket-card:hover {
+    transform: translateY(-2px);
+}
+
+
+/* ============================================================
+   TICKET HEADER
+============================================================ */
+
+.ticket-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 10px;
+}
+
+.ticket-header strong {
+    font-size: 14px;
+}
+
+
+/* ============================================================
+   TICKET STATUS
+============================================================ */
+
+.ticket-status {
+    padding: 4px 9px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    text-transform: uppercase;
+}
+
+
+/* ============================================================
+   TICKET ISSUE
+============================================================ */
+
+.ticket-issue {
+    margin-bottom: 12px;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+/* ============================================================
+   TICKET FOOTER
+============================================================ */
+
+.ticket-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+
+    font-size: 12px;
+
+    opacity: 0.85;
+}
+
+
+/* ============================================================
+   MOBILE RESPONSIVE
+============================================================ */
+
+@media (max-width: 600px) {
+
+    .ticket-footer {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .ticket-header {
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+}
+.message-bubble {
+    white-space: pre-wrap;
+}
+/* ==========================================
+   ORDER HISTORY
+========================================== */
+
+.order-history {
+    max-width: 650px;
+    width: 100%;
+}
+
+.order-history h3 {
+    margin: 0 0 8px 0;
+    font-size: 20px;
+}
+
+.order-total {
+    margin-bottom: 18px;
+    font-size: 14px;
+    color: #666;
+}
+
+
+/* ORDER CARD */
+
+.order-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+
+/* CARD HEADER */
+
+.order-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+
+/* ORDER DETAILS */
+
+.order-card p {
+    margin: 7px 0;
+    font-size: 14px;
+}
+
+
+/* STATUS BADGE */
+
+.order-status {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+
+/* DIFFERENT STATUSES */
+
+.order-status.processing {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.order-status.shipped {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.order-status.delivered {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.order-status.cancelled {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.order-status.refunded {
+    background: #f3e8ff;
+    color: #7e22ce;
+}
+/* ==========================================
+   PRODUCT INFORMATION IN ORDER CARD
+========================================== */
+
+.order-product-name {
+    margin: 14px 0 8px 0;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.order-product-description {
+    color: #666;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 14px;
+}

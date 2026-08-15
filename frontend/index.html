@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SupportFlow AI</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- ================================
+             SIDEBAR
+        ================================= -->
+
+        <aside class="sidebar">
+
+            <div class="logo">
+
+                <div class="logo-icon">
+                    ⚡
+                </div>
+
+                <div>
+                    <h2>SupportFlow AI</h2>
+                    <span>AI Customer Support</span>
+                </div>
+
+            </div>
+
+
+            <!-- QUICK ACTIONS -->
+
+            <div class="sidebar-section">
+
+                <p class="section-title">
+                    QUICK ACTIONS
+                </p>
+
+
+                <!-- ORDER STATUS -->
+
+                <button
+                    class="quick-btn"
+                    onclick="sendQuickMessage('What is the status of my order #3?')"
+                >
+                    📦 Order Status
+                </button>
+
+
+                <!-- PRODUCT DETAILS -->
+
+                <button
+                    class="quick-btn"
+                    onclick="sendQuickMessage('Tell me the details of product #1.')"
+                >
+                    🛍️ Product Details
+                </button>
+
+                <button
+                    class="quick-btn"
+                    onclick="getOrderHistory()"
+>
+                    📋 Order History
+                </button>
+                <!-- CANCEL ORDER -->
+
+                <button
+                    class="quick-btn"
+                    onclick="sendQuickMessage('I want to cancel my order #3.')"
+                >
+                    ❌ Cancel Order
+                </button>
+
+
+                <!-- CREATE TICKET -->
+
+                <button
+                    class="quick-btn"
+                    onclick="sendQuickMessage('I received a damaged product and want to report this issue.')"
+                >
+                    🎫 Create Ticket
+                </button>
+
+
+                <!-- TICKET HISTORY -->
+
+                <button
+                    class="quick-btn"
+                    onclick="showTicketHistory()"
+                >
+                    📋 Ticket History
+                </button>
+
+
+                <!-- CLEAR CHAT -->
+
+                <button
+                    class="quick-btn clear-chat-btn"
+                    onclick="clearChat()"
+                >
+                    🧹 Clear Chat
+                </button>
+
+            </div>
+
+
+            <!-- SIDEBAR BOTTOM -->
+
+            <div class="sidebar-bottom">
+
+                <div class="status">
+
+                    <span class="status-dot"></span>
+
+                    <span>
+                        AI Agent Online
+                    </span>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+
+        <!-- ================================
+             MAIN CHAT AREA
+        ================================= -->
+
+        <main class="chat-container">
+
+
+            <!-- HEADER -->
+
+            <header class="chat-header">
+
+                <div>
+
+                    <h1>
+                        Customer Support
+                    </h1>
+
+                    <p>
+                        Ask SupportFlow AI anything about your orders or products.
+                    </p>
+
+                </div>
+
+
+                <div class="user-badge">
+
+                    <span>
+                        👤
+                    </span>
+
+                    <span>
+                        User #2
+                    </span>
+
+                </div>
+
+            </header>
+
+
+
+            <!-- ================================
+                 CHAT MESSAGES
+            ================================= -->
+
+            <section
+                id="chatMessages"
+                class="chat-messages"
+            >
+
+                <!-- WELCOME SCREEN -->
+
+                <div class="welcome-message">
+
+                    <div class="welcome-icon">
+                        🤖
+                    </div>
+
+
+                    <h2>
+                        How can I help you?
+                    </h2>
+
+
+                    <p>
+                        I can help with orders, products,
+                        cancellations and support tickets.
+                    </p>
+
+
+                    <!-- SUGGESTIONS -->
+
+                    <div class="suggestions">
+
+
+                        <!-- CHECK ORDER -->
+
+                        <button
+                            onclick="sendQuickMessage('What is the status of my order #3?')"
+                        >
+                            📦 Check my order
+                        </button>
+
+
+                        <!-- PRODUCT INFORMATION -->
+
+                        <button
+                            onclick="sendQuickMessage('Tell me the details of product #1.')"
+                        >
+                            🛍️ Product information
+                        </button>
+
+
+                        <!-- REPORT ISSUE -->
+
+                        <button
+                            onclick="sendQuickMessage('I received a damaged product and want to report this issue.')"
+                        >
+                            🎫 Report an issue
+                        </button>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================================
+                 INPUT AREA
+            ================================= -->
+
+            <footer class="chat-input-area">
+
+                <div class="input-wrapper">
+
+
+                    <textarea
+                        id="messageInput"
+                        placeholder="Ask SupportFlow AI..."
+                        rows="1"
+                        onkeydown="handleKeyDown(event)"
+                    ></textarea>
+
+
+                    <button
+                        id="sendButton"
+                        class="send-button"
+                        onclick="sendMessage()"
+                    >
+                        ➤
+                    </button>
+
+                </div>
+
+
+                <p class="input-hint">
+                    Press Enter to send • Shift + Enter for a new line
+                </p>
+
+            </footer>
+
+        </main>
+
+    </div>
+
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="app.js"></script>
+
+
+</body>
+
+</html>
